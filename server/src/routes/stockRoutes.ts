@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { handleStockIn } from "../controllers/stockController";
+import { handleStockIn, handleStockOut } from "../controllers/stockController";
 
 const router = Router();
 
 router.post("/in", handleStockIn);
+router.post('/out',handleStockOut)
 export default router;
