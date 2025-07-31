@@ -41,7 +41,7 @@ const ProductSchema: Schema = new Schema(
     },
     isDeleted: {
       type: Boolean,
-      required: false,
+      default: false,
     },
   },
   { timestamps: true }

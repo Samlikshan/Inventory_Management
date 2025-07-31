@@ -8,4 +8,5 @@ export interface IProduct extends Document {
   initialStock: number;
   currentStock: number;
   price: number;
+  isDeleted: boolean;
 }

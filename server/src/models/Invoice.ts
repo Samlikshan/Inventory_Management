@@ -27,6 +27,12 @@ const InvoiceSchema = new Schema<IInvoice>(
       },
     },
     total: { type: Number, required: true, min: 0 },
+    status: {
+      type: String,
+      enum: ["pending", "paid", "canceled", "refunded"],
+      default: "pending",
+      required: true,
+    },
   },
   { timestamps: true }
 );

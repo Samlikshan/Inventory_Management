@@ -15,6 +15,7 @@ export interface IInvoice extends Document {
   };
   products: IInvoiceProduct[];
   total: number;
+  status: "pending" | "paid" | "canceled" | "refunded";
   createdAt: Date;
   updatedAt: Date;
 }
