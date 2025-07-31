@@ -30,7 +30,6 @@ export const handleStockOut = async (req: Request, res: Response) => {
     const validatedData: StockOut = stockOutSchema.parse(req.body);
 
     const result = await stockOutService(validatedData);
-    console.log(result);
     res.status(200).json(result);
   } catch (error: any) {
     if (error instanceof ZodError) {
