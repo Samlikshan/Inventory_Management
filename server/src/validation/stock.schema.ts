@@ -35,14 +35,9 @@ export const stockInSchema = z.object({
 export type StockIn = z.infer<typeof stockInSchema>;
 
 export const stockOutSchema = z.object({
-  type: z.enum(["IN", "OUT"], {
-    required_error: "Type is required",
-    invalid_type_error: "Type must be 'IN' or 'OUT'",
-  }),
-
   productId: z
     .string({
-      required_error: "Product ID is required",
+      required_error: "Please select a product",
       invalid_type_error: "Product ID must be a string",
     })
     .min(1, "Product ID is required"),

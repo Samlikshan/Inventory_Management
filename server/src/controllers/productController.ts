@@ -1,14 +1,38 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Product from "../models/Product";
 import { createProductSchema } from "../validation/product.schema";
 import { generateProductId } from "../utils/generateProductId";
+import { ZodError } from "zod";
 
-export const createProduct = async (req: Request, res: Response) => {
+export const getProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
+    const products = await Product.find({ isDeleted: { $ne: true } });
+
+    res.status(200).json({
+      message: "Products fetched successfully",
+      products,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const createProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log(req.body);
     const parseResult = createProductSchema.safeParse(req.body);
 
     if (!parseResult.success) {
-      return res.status(400).json({ error: parseResult.error.flatten() });
+      // let ZodError bubble to the errorHandler
+      throw parseResult.error;
     }
 
     const { name, category, unit, initialStock, price } = req.body;
@@ -27,6 +51,6 @@ export const createProduct = async (req: Request, res: Response) => {
     const saved = await product.save();
     return res.status(201).json(saved);
   } catch (err) {
-    return res.status(500).json({ message: "Server error", error: err });
+    next(err);
   }
 };

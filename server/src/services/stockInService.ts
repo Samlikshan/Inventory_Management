@@ -20,9 +20,9 @@ export const stockInService = async ({
     session.startTransaction();
 
     const product = await Product.findOne({ productId }).session(session);
-    if (!product) throw new Error("Product not found");
-
-    if (quantity <= 0) throw new Error("Quantity must be greater than 0");
+    if (!product) throw { status: 400, message: "Product not found" };
+    if (quantity <= 0)
+      throw { status: 400, message: "Quantity must be greater than 0" };
 
     product.currentStock += quantity;
     await product.save({ session });

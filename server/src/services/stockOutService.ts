@@ -21,11 +21,11 @@ export const stockOutService = async ({
     const product = await Product.findOne({ productId }).session(session);
 
     if (!product) {
-      throw new Error("Product not found");
+      throw { status: 400, message: "Product not found" };
     }
 
     if (product.currentStock < quantity) {
-      throw new Error("Insufficient stock");
+      throw { status: 400, message: "Insufficient stock" };
     }
 
     product.currentStock -= quantity;

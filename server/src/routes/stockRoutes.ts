@@ -1,8 +1,15 @@
 import { Router } from "express";
-import { handleStockIn, handleStockOut } from "../controllers/stockController";
+import {
+  getStockInTransactions,
+  getStockOutTransactions,
+  handleStockIn,
+  handleStockOut,
+} from "../controllers/stockController";
 
 const router = Router();
 
+router.get("/in", getStockInTransactions);
 router.post("/in", handleStockIn);
-router.post('/out',handleStockOut)
+router.get("/out", getStockOutTransactions);
+router.post("/out", handleStockOut);
 export default router;
