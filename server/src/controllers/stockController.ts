@@ -48,6 +48,7 @@ export const getStockInTransactions = async (
     const stockIns = await StockLog.find({ type: "IN" }).sort({
       createdAt: -1,
     });
+    console.log(stockIns);
     res.status(200).json(stockIns);
   } catch (error) {
     next(error);
